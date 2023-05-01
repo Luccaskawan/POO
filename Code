@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-
 public class RelatorioMensal {
     private int mes;
     private int ano;
@@ -45,9 +43,124 @@ public class RelatorioMensal {
         this.gastoTotal += gasto.getValor();
     }
 
+    public String toString() {
+        return "Relatório mensal " + mes + "/" + ano + " - Gasto total: " + gastoTotal + " - Ganho total: " + ganhoTotal;
+    }
+}
+
+public class RelatorioMensal {
+    private int mes;
+    private int ano;
+    private double ganhoTotal;
+    private double gastoTotal;
+
+    public RelatorioMensal(int mes, int ano) {
+        this.mes = mes;
+        this.ano = ano;
+        this.ganhoTotal = 0;
+        this.gastoTotal = 0;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public double getGanhoTotal() {
+        return ganhoTotal;
+    }
+
+    public double getGastoTotal() {
+        return gastoTotal;
+    }
+
+    public void adicionarGanho(Ganho ganho) {
+        this.ganhoTotal += ganho.getValor();
+    }
+
+    public void adicionarGasto(Gasto gasto) {
+        this.gastoTotal += gasto.getValor();
+    }
+
     @Override
     public String toString() {
         return "Relatório mensal " + mes + "/" + ano + " - Gasto total: " + gastoTotal + " - Ganho total: " + ganhoTotal;
     }
 }
 
+public class GestaoFinanceira {
+    private ArrayList<Gasto> gastos;
+    private ArrayList<Ganho> ganhos;
+    private ArrayList<RelatorioMensal> relatoriosMensais;
+
+    public GestaoFinanceira() {
+        gastos = new ArrayList<Gasto>();
+        ganhos = new ArrayList<Ganho>();
+        relatoriosMensais = new ArrayList<RelatorioMensal>();
+    }
+
+    public void adicionarGasto(Gasto gasto) {
+        gastos.add(gasto);
+    }
+
+    public void adicionarGanho(Ganho ganho) {
+        ganhos.add(ganho);
+    }
+
+    public double calcularTotalGastos() {
+        double total = 0;
+        for (Gasto gasto : gastos) {
+            total += gasto.getValor();
+        }
+        return total;
+    }
+
+    public double calcularTotalGanhos() {
+        double total = 0;
+        for (Ganho ganho : ganhos) {
+            total += ganho.getValor();
+        }
+        return total;
+    }
+
+    public RelatorioMensal gerarRelatorioMensal(int mes, int ano) {
+        double gastoTotal = 0;
+        double ganhoTotal = 0;
+        for (Gasto gasto : gastos) {
+            if (gasto.getData().getMonthValue() == mes && gasto.getData().getYear() == ano) {
+                gastoTotal += gasto.getValor();
+            }
+        }
+        for (Ganho ganho : ganhos) {
+            if (ganho.getData().getMonthValue() == mes && ganho.getData().getYear() == ano) {
+                ganhoTotal += ganho.getValor();
+            }
+        }
+        RelatorioMensal relatorio = new RelatorioMensal(mes, ano, gastoTotal, ganhoTotal);
+        relatoriosMensais.add(relatorio);
+        return relatorio;
+    }
+
+    public ArrayList<Gasto> getGastos() {
+        return gastos;
+    }
+
+    public ArrayList<Ganho> getGanhos() {
+        return ganhos;
+    }
+
+    public ArrayList<RelatorioMensal> getRelatoriosMensais() {
+        return relatoriosMensais;
+    }
+}
