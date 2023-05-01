@@ -1,3 +1,35 @@
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        // Criação de um objeto de gestão financeira
+        GestaoFinanceira gestaoFinanceira = new GestaoFinanceira();
+
+        // Adicionando gastos
+        gestaoFinanceira.adicionarGasto(new Gasto("Aluguel", LocalDate.of(2022, 1, 1), 1000.0, "Boleto"));
+        gestaoFinanceira.adicionarGasto(new Gasto("Supermercado", LocalDate.of(2022, 1, 5), 500.0, "Cartão de crédito"));
+
+        // Adicionando ganhos
+        gestaoFinanceira.adicionarGanho(new Ganho("Salário", LocalDate.of(2022, 1, 15), 2000.0));
+        gestaoFinanceira.adicionarGanho(new Ganho("Freelance", LocalDate.of(2022, 1, 20), 500.0));
+
+        // Gerando relatórios
+        gestaoFinanceira.gerarRelatorioGastos();
+        gestaoFinanceira.gerarRelatorioGanhos();
+        gestaoFinanceira.gerarRelatorioMensal(1, 2022);
+
+        // Exibindo relatórios
+        System.out.println("Relatório de Gastos:");
+        System.out.println(gestaoFinanceira.getRelatoriosMensais().get(0).toString());
+
+        System.out.println("Relatório de Ganhos:");
+        System.out.println(gestaoFinanceira.getRelatoriosMensais().get(1).toString());
+
+        System.out.println("Relatório Mensal (janeiro/2022):");
+        System.out.println(gestaoFinanceira.getRelatoriosMensais().get(2).toString());
+    }
+}
+
 public class RelatorioMensal {
     private int mes;
     private int ano;
