@@ -1,0 +1,53 @@
+import java.time.LocalDate;
+
+public class RelatorioMensal {
+    private int mes;
+    private int ano;
+    private double ganhoTotal;
+    private double gastoTotal;
+
+    public RelatorioMensal(int mes, int ano) {
+        this.mes = mes;
+        this.ano = ano;
+        
+        this.gastoTotal = 0;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public double getGanhoTotal() {
+        return ganhoTotal;
+    }
+
+    public double getGastoTotal() {
+        return gastoTotal;
+    }
+
+    public void adicionarGanho(Ganho ganho) {
+        this.ganhoTotal += ganho.getValor();
+    }
+
+    public void adicionarGasto(Gasto gasto) {
+        this.gastoTotal += gasto.getValor();
+    }
+
+    @Override
+    public String toString() {
+        return "Relatório mensal " + mes + "/" + ano + " - Gasto total: " + gastoTotal + " - Ganho total: " + ganhoTotal;
+    }
+}
+
